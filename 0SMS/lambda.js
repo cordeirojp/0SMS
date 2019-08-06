@@ -30,11 +30,12 @@ exports.handler = function (event, context, callback) {
             console.log("Sent message to", receiver);
             console.log("data =",data);
             //console.log("data =",data.ResponseMetadata.MessageId);
-            console.log("data =",data.MessageId);
+            var msgID = data.MessageId;
+            console.log("msgID =",msgID);
 
             ddb.put({
                 TableName: 'SendedSMS',
-                Item: { 'MessID': 'MessageID' }
+                Item: { 'MessID': msgID }
             }).promise()
                 .then((data) => {
                     //your logic goes here
