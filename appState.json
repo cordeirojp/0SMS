@@ -22,7 +22,7 @@
         "children": [],
         "isRemovable": true,
         "filePath": "0SMS/lambda.js",
-        "code": "let AWS = require('aws-sdk');\nconst sns = new AWS.SNS();\nexports.handler = function (event, context, callback) {\n\n    let receiver = event['receiver'];\n    let sender = event['sender'];\n    let message = event['message'];\n\n   \n   \n    console.log(\"Sending message\", message, \"to receiver\", receiver);\n\n    sns.publish({\n        Message: message,\n        MessageAttributes: {\n            'AWS.SNS.SMS.SMSType': {\n                'DataType': 'String',\n                'StringValue': 'Transactional'\n            },\n            'AWS.SNS.SMS.SenderID': {\n                'DataType': 'String',\n                'StringValue': sender\n            }\n        },\n        PhoneNumber: receiver\n    }).promise()\n        .then(data => {\n\t\t\tconsole.log(\"Sent message to\", receiver);\n\t\t\tcallback(null, data);\n        })\n        .catch(err => {\n\t\t\tconsole.log(\"Sending failed\", err);\n\t\t\tcallback(err);\n        });\n}",
+        "code": "let AWS = require('aws-sdk-mock');\nconst sns = new AWS.SNS();\nexports.handler = function (event, context, callback) {\n\n    let receiver = event['receiver'];\n    let sender = event['sender'];\n    let message = event['message'];\n\n   \n   \n    console.log(\"Sending message\", message, \"to receiver\", receiver);\n\n    sns.publish({\n        Message: message,\n        MessageAttributes: {\n            'AWS.SNS.SMS.SMSType': {\n                'DataType': 'String',\n                'StringValue': 'Transactional'\n            },\n            'AWS.SNS.SMS.SenderID': {\n                'DataType': 'String',\n                'StringValue': sender\n            }\n        },\n        PhoneNumber: receiver\n    }).promise()\n        .then(data => {\n\t\t\tconsole.log(\"Sent message to\", receiver);\n\t\t\tcallback(null, data);\n        })\n        .catch(err => {\n\t\t\tconsole.log(\"Sending failed\", err);\n\t\t\tcallback(err);\n        });\n}",
         "config": {
           "runtime": "nodejs8.10",
           "handler": "handler",
@@ -35,7 +35,15 @@
             "resourceName": "apigeuWest1SMS9sendSMSpost",
             "config": {}
           }
-        ]
+        ],
+        "testCases": {
+          "828bd05c-2f20-4cc9-94c1-d39da9e5dea8": {
+            "id": "828bd05c-2f20-4cc9-94c1-d39da9e5dea8",
+            "name": "test case",
+            "functionId": "d1529381-cb68-4f7e-a46e-b42e75a0e613",
+            "event": "{\n \"receiver\": \"+33682801103\",\n \"sender\": \"MySMS\",\n \"message\": \"IDE test case\"\n}"
+          }
+        }
       }
     },
     "deletedFiles": [],
@@ -97,6 +105,11 @@
           "version": "2.176.0",
           "dev": true,
           "notRemovable": false
+        },
+        "aws-sdk-mock": {
+          "name": "aws-sdk-mock",
+          "version": "4.5.0",
+          "language": "javascript"
         }
       }
     }
@@ -108,7 +121,7 @@
     "projectRegion": "eu-west-1",
     "platform": "AWS",
     "platformRegions": {},
-    "lastSave": 1565092406704
+    "lastSave": 1565095309293
   },
   "VCS_STATE": {
     "provider": "GitHub",
