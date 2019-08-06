@@ -39,9 +39,10 @@ exports.handler = function (event, context, callback) {
             }).promise()
                 .then((data) => {
                     //your logic goes here
+                    console.log("db ok", data); 
                 })
                 .catch((err) => {
-                    //handle error
+                    console.log("db failed", err);
                 });
 
 
