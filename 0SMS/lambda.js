@@ -29,6 +29,7 @@ exports.handler = function (event, context, callback) {
         .then(data => {
             console.log("Sent message to", receiver);
             console.log("data =",data);
+            console.log("data =",data.ResponseMetadata.MessageId);
 
             ddb.put({
                 TableName: 'SendedSMS',
