@@ -22,7 +22,7 @@
         "children": [],
         "isRemovable": true,
         "filePath": "0SMS/lambda.js",
-        "code": "let AWS = require('aws-sdk');\nconst ddb = new AWS.DynamoDB.DocumentClient();\nconst sns = new AWS.SNS();\n\nexports.handler = function (event, context, callback) {\n\n    let receiver = event['receiver'];\n    let sender = event['sender'];\n    let message = event['message'];\n\n\n\n    console.log(\"Sending message\", message, \"to receiver\", receiver);\n\n    sns.publish({\n        Message: message,\n        MessageAttributes: {\n            'AWS.SNS.SMS.SMSType': {\n                'DataType': 'String',\n                'StringValue': 'Transactional'\n            },\n            'AWS.SNS.SMS.SenderID': {\n                'DataType': 'String',\n                'StringValue': sender\n            }\n        },\n        PhoneNumber: receiver\n    }).promise()\n        .then(data => {\n            console.log(\"Sent message to\", receiver);\n            ddb.put({\n                TableName: 'SendedSMS',\n                Item: { 'MessID': data }\n            }).promise()\n                .then((data) => {\n                    //your logic goes here\n                })\n                .catch((err) => {\n                    //handle error\n                });\n\n            callback(null, data);\n        })\n        .catch(err => {\n            console.log(\"Sending failed\", err);\n            callback(err);\n        });\n}",
+        "code": "let AWS = require('aws-sdk');\nconst ddb = new AWS.DynamoDB.DocumentClient();\nconst sns = new AWS.SNS();\n\nexports.handler = function (event, context, callback) {\n\n    let receiver = event['receiver'];\n    let sender = event['sender'];\n    let message = event['message'];\n\n\n\n    console.log(\"Sending message\", message, \"to receiver\", receiver);\n\n    sns.publish({\n        Message: message,\n        MessageAttributes: {\n            'AWS.SNS.SMS.SMSType': {\n                'DataType': 'String',\n                'StringValue': 'Transactional'\n            },\n            'AWS.SNS.SMS.SenderID': {\n                'DataType': 'String',\n                'StringValue': sender\n            }\n        },\n        PhoneNumber: receiver\n    }).promise()\n        .then(data => {\n            console.log(\"Sent message to\", receiver);\n            var params = {\n                TableName: 'SendedSMS',\n                Item: { 'MessID': data }\n            };\n            ddb.putItem(params, function(errD, dataD) {\n                if (err) console.log(errD, errD.stack); // an error occurred\n                else     console.log(dataD);           // successful response\n            });\n            callback(null, data);\n        })\n        .catch(err => {\n            console.log(\"Sending failed\", err);\n            callback(err);\n        });\n}",
         "config": {
           "runtime": "nodejs8.10",
           "handler": "handler",
@@ -149,7 +149,7 @@
     "projectRegion": "eu-west-1",
     "platform": "AWS",
     "platformRegions": {},
-    "lastSave": 1565105950511
+    "lastSave": 1565106717747
   },
   "VCS_STATE": {
     "provider": "GitHub",

@@ -28,17 +28,14 @@ exports.handler = function (event, context, callback) {
     }).promise()
         .then(data => {
             console.log("Sent message to", receiver);
-            ddb.put({
+            var params = {
                 TableName: 'SendedSMS',
                 Item: { 'MessID': data }
-            }).promise()
-                .then((data) => {
-                    //your logic goes here
-                })
-                .catch((err) => {
-                    //handle error
-                });
-
+            };
+            ddb.putItem(params, function(errD, dataD) {
+                if (err) console.log(errD, errD.stack); // an error occurred
+                else     console.log(dataD);           // successful response
+            });
             callback(null, data);
         })
         .catch(err => {
