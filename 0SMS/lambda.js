@@ -30,7 +30,7 @@ exports.handler = function (event, context, callback) {
 
             ddb.put({
                 TableName: 'SendedSMS',
-                Item: { 'MessID': msgID, 'Receiver': receiver, 'Message': message, 'Date':date }
+                Item: { 'MessID': msgID, 'Receiver': receiver, 'Message': message, 'Date': date }
             }).promise()
                 .then((data) => {
                     console.log("db ok");
