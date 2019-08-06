@@ -26,10 +26,11 @@ exports.handler = function (event, context, callback) {
         .then(data => {
             console.log("Sent message to", receiver);
             var msgID = data.MessageId;
+            const date = new Date(Date.now()).toString();
 
             ddb.put({
                 TableName: 'SendedSMS',
-                Item: { 'MessID': msgID, 'Receiver': receiver, 'Message': message }
+                Item: { 'MessID': msgID, 'Receiver': receiver, 'Message': message, 'Date':date }
             }).promise()
                 .then((data) => {
                     console.log("db ok");
