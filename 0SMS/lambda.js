@@ -32,10 +32,19 @@ exports.handler = function (event, context, callback) {
                 TableName: 'SendedSMS',
                 Item: { 'MessID': data }
             };
-            ddb.putItem(params, function(errD, dataD) {
-                if (err) console.log(errD, errD.stack); // an error occurred
-                else     console.log(dataD);           // successful response
-            });
+
+            ddb.put({
+                TableName: 'SendedSMS',
+                Item: { 'MessID': 'MessageID' }
+            }).promise()
+                .then((data) => {
+                    //your logic goes here
+                })
+                .catch((err) => {
+                    //handle error
+                });
+
+
             callback(null, data);
         })
         .catch(err => {
