@@ -28,10 +28,7 @@ exports.handler = function (event, context, callback) {
     }).promise()
         .then(data => {
             console.log("Sent message to", receiver);
-            var params = {
-                TableName: 'SendedSMS',
-                Item: { 'MessID': data }
-            };
+            console.log("data =",data);
 
             ddb.put({
                 TableName: 'SendedSMS',
