@@ -1,9 +1,7 @@
 {
   "name": "0SMS",
   "version": "1.0.0",
-  "dependencies": {
-    "aws-sdk-mock": "4.5.0"
-  },
+  "dependencies": {},
   "devDependencies": {
     "aws-sdk": "2.176.0"
   }

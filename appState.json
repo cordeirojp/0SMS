@@ -105,11 +105,6 @@
           "version": "2.176.0",
           "dev": true,
           "notRemovable": false
-        },
-        "aws-sdk-mock": {
-          "name": "aws-sdk-mock",
-          "version": "4.5.0",
-          "language": "javascript"
         }
       }
     }
@@ -121,7 +116,7 @@
     "projectRegion": "eu-west-1",
     "platform": "AWS",
     "platformRegions": {},
-    "lastSave": 1565095682226
+    "lastSave": 1565096092367
   },
   "VCS_STATE": {
     "provider": "GitHub",
