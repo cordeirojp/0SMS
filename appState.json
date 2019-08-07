@@ -60,7 +60,7 @@
           "selectedRegion": "eu-west-1",
           "apiMode": 0,
           "apiName": "SMS9",
-          "endpointType": "EDGE",
+          "endpointType": "REGIONAL",
           "resourceMode": 0,
           "resourceName": "sendSMS",
           "resourcePath": "/sendSMS",
@@ -158,7 +158,7 @@
     "projectRegion": "eu-west-1",
     "platform": "AWS",
     "platformRegions": {},
-    "lastSave": 1565113344331
+    "lastSave": 1565165382574
   },
   "VCS_STATE": {
     "provider": "GitHub",
