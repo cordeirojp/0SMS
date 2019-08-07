@@ -14,7 +14,7 @@ exports.handler = function (event, context, callback) {
         MessageAttributes: {
             'AWS.SNS.SMS.SMSType': {
                 'DataType': 'String',
-                'StringValue': 'Transactional'
+                'StringValue': 'Promotional'
             },
             'AWS.SNS.SMS.SenderID': {
                 'DataType': 'String',
